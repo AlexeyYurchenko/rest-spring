@@ -1,7 +1,6 @@
 package com.example.rest.rest.service.impl;
 
 import com.example.rest.rest.exception.EntityNotFoundException;
-import com.example.rest.rest.exception.UpdateStateException;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.repository.OrderRepository;
 import com.example.rest.rest.service.OrderService;
@@ -9,8 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -53,13 +50,5 @@ public class OrderServiceImpl implements OrderService {
     public void deleteByIdIn(List<Long> ids) {
         orderRepository.deleteByIdIn(ids);
     }
-    private void checkForUpdate(Long orderId) {
-        Order currentOrder = findById(orderId);
-        Instant now = Instant.now();
-        Duration duration = Duration.between(currentOrder.getUpdateAt(),now);
 
-        if (duration.getSeconds() > 5){
-            throw new UpdateStateException("unable to update order");
-        }
-    }
 }
