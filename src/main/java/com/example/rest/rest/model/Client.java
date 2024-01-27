@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
+@ToString
 @Entity(name = "clients")
 public class Client {
     @Id
@@ -29,5 +31,12 @@ public class Client {
     }
     public void removeOrder(Long orderId) {
         orders = orders.stream().filter(o -> !o.getId().equals(orderId)).collect(Collectors.toList());
+    }
+
+    public List<Order> getOrders() {
+        if (orders==null){
+            orders=new ArrayList<>();
+        }
+        return orders;
     }
 }

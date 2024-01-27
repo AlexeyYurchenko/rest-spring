@@ -3,12 +3,14 @@ package com.example.rest.rest.mapper.v2;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.service.ClientService;
 import com.example.rest.rest.web.model.UpsertOrderRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 
 public abstract class OrderMapperDelegate implements OrderMapperV2 {
 
-
+    @Qualifier("databaseClientService")
     @Autowired
     private ClientService databaseClientService;
 

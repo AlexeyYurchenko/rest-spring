@@ -15,34 +15,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DatabaseClientService implements ClientService {
 
-    private final DatabaseClientRepository clientRepository;
+    private final DatabaseClientRepository databaseClientRepository;
 
     @Override
     public List<Client> findAll() {
-        return clientRepository.findAll();
+        return databaseClientRepository.findAll();
     }
 
     @Override
     public Client findById(Long id) {
-        return clientRepository.findById(id)
+        return databaseClientRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(MessageFormat.format(
                         "Client with ID {0} not found",id)));
     }
 
     @Override
     public Client save(Client client) {
-        return clientRepository.save(client);
+        return databaseClientRepository.save(client);
     }
 
     @Override
     public Client update(Client client) {
         Client existedClient = findById(client.getId());
         BeanUtils.copyNonNullProperties(client,existedClient);
-        return clientRepository.save(client);
+        return databaseClientRepository.save(client);
     }
 
     @Override
     public void deleteById(Long id) {
-        clientRepository.findById(id);
+        databaseClientRepository.findById(id);
     }
 }

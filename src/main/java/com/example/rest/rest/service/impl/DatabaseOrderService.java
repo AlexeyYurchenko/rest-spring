@@ -16,18 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 public class DatabaseOrderService implements OrderService {
 
-    private final DatabaseOrderRepository orderRepository;
+    private final DatabaseOrderRepository databaseOrderRepository;
 
     private final ClientService databaseClientService;
 
     @Override
     public List<Order> findAll() {
-        return orderRepository.findAll();
+        return databaseOrderRepository.findAll();
     }
 
     @Override
     public Order findById(Long id) {
-        return orderRepository.findById(id)
+        return databaseOrderRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException(MessageFormat.format(
                         "Order with ID {0} not found",id)));
     }
@@ -36,7 +36,7 @@ public class DatabaseOrderService implements OrderService {
     public Order save(Order order) {
         Client client = databaseClientService.findById(order.getClient().getId());
         order.setClient(client);
-        return orderRepository.save(order);
+        return databaseOrderRepository.save(order);
     }
 
     @Override
@@ -46,16 +46,16 @@ public class DatabaseOrderService implements OrderService {
         Order existedOrder = findById(order.getId());
         BeanUtils.copyNonNullProperties(order,existedOrder);
         existedOrder.setClient(client);
-        return orderRepository.save(existedOrder);
+        return databaseOrderRepository.save(existedOrder);
     }
 
     @Override
     public void deleteById(Long id) {
-        orderRepository.deleteById(id);
+        databaseOrderRepository.deleteById(id);
     }
 
     @Override
     public void deleteByIdIn(List<Long> ids) {
-        orderRepository.deleteAllById(ids);
+        databaseOrderRepository.deleteAllById(ids);
     }
 }

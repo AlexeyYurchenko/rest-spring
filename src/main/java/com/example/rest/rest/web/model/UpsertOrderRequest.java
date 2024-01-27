@@ -3,7 +3,7 @@ package com.example.rest.rest.web.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -17,7 +17,7 @@ public class UpsertOrderRequest {
     @NotBlank(message = "Product name must be specified")
     private String product;
 
-    @NotBlank(message = "the price must be indicated")
+    @NotNull(message = "the price must be indicated")
     @Positive(message = "Cost must be greater than 0")
     private BigDecimal cost;
 }

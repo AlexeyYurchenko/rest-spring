@@ -2,7 +2,7 @@ package com.example.rest.rest.web.controller.v2;
 
 import com.example.rest.rest.mapper.v2.OrderMapperV2;
 import com.example.rest.rest.model.Order;
-import com.example.rest.rest.service.OrderService;
+import com.example.rest.rest.service.impl.DatabaseOrderService;
 import com.example.rest.rest.web.model.OrderListResponse;
 import com.example.rest.rest.web.model.OrderResponse;
 import com.example.rest.rest.web.model.UpsertOrderRequest;
@@ -17,30 +17,30 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OrderControllerV2 {
 
-    private final OrderService databaseOrderService;
-    private final OrderMapperV2 orderMapper;
+    private final DatabaseOrderService databaseOrderService;
+    private final OrderMapperV2 orderMapperV2;
 
     @GetMapping
     public ResponseEntity<OrderListResponse> findAll() {
         return ResponseEntity.ok(
-                orderMapper.orderListToOrderListResponse(databaseOrderService.findAll()));
+                orderMapperV2.orderListToOrderListResponse(databaseOrderService.findAll()));
     }
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> findById(@PathVariable Long id){
         return ResponseEntity.ok(
-                orderMapper.orderToResponse(databaseOrderService.findById(id)));
+                orderMapperV2.orderToResponse(databaseOrderService.findById(id)));
     }
     @PostMapping
     public ResponseEntity<OrderResponse> create(@RequestBody @Valid UpsertOrderRequest request){
-        Order newOrder = databaseOrderService.save(orderMapper.requestToOrder(request));
+        Order newOrder = databaseOrderService.save(orderMapperV2.requestToOrder(request));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderMapper.orderToResponse(newOrder));
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderMapperV2.orderToResponse(newOrder));
     }
     @PutMapping("/{id}")
     public ResponseEntity<OrderResponse> update(@PathVariable("id")Long orderId
             ,@RequestBody @Valid UpsertOrderRequest request){
-        Order updateOrder = databaseOrderService.update(orderMapper.requestToOrder(orderId,request));
-        return ResponseEntity.ok(orderMapper.orderToResponse(updateOrder));
+        Order updateOrder = databaseOrderService.update(orderMapperV2.requestToOrder(orderId,request));
+        return ResponseEntity.ok(orderMapperV2.orderToResponse(updateOrder));
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
