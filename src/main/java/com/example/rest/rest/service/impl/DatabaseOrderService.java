@@ -4,6 +4,7 @@ import com.example.rest.rest.exception.EntityNotFoundException;
 import com.example.rest.rest.model.Client;
 import com.example.rest.rest.model.Order;
 import com.example.rest.rest.repository.DatabaseOrderRepository;
+import com.example.rest.rest.repository.OrderSpecification;
 import com.example.rest.rest.service.ClientService;
 import com.example.rest.rest.service.OrderService;
 import com.example.rest.rest.utils.BeanUtils;
@@ -25,7 +26,7 @@ public class DatabaseOrderService implements OrderService {
 
     @Override
     public List<Order> filterBy(OrderFilter filter) {
-        return databaseOrderRepository.findAllByProduct(filter.getProductName()
+        return databaseOrderRepository.findAll(OrderSpecification.withFilter(filter)
                 , PageRequest.of(
                         filter.getPageNumber(), filter.getPageSize()
                 )).getContent();

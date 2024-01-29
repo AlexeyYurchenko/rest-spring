@@ -53,7 +53,7 @@ public interface OrderSpecification {
             if (createdBefore==null){
                 return null;
             }
-            return cb.lessThanOrEqualTo(root.get("createdAt"),createdBefore);
+            return cb.lessThanOrEqualTo(root.get("createAt"),createdBefore);
         };
     }
     static Specification<Order> byUpdatedAtBefore(Instant updatedBefore) {
@@ -61,8 +61,7 @@ public interface OrderSpecification {
             if (updatedBefore==null) {
                 return null;
             }
-            return cb.lessThanOrEqualTo(root.get("updatedAt"),updatedBefore);
+            return cb.lessThanOrEqualTo(root.get("updateAt"),updatedBefore);
         };
     }
-
 }
