@@ -10,4 +10,8 @@ public interface DatabaseOrderRepository extends JpaRepository<Order,Long>, JpaS
 
     Page<Order> findAllByProduct(String product, Pageable pageable);
 
+//    @Query("SELECT o FROM com.example.rest.rest.model.Order o WHERE o.product = :productName")
+//    @Query(value = "SELECT * FROM orders o where o.product = :productName",nativeQuery = true)
+//    List<Order> getByProduct(String productName);
+
 }

@@ -24,7 +24,7 @@ public class OrderControllerV2 {
     private final OrderMapperV2 orderMapperV2;
 
     @GetMapping("/filter")
-    public ResponseEntity<OrderListResponse> filterBy(OrderFilter filter) {
+    public ResponseEntity<OrderListResponse> filterBy(@Valid OrderFilter filter) {
         return ResponseEntity.ok(
                 orderMapperV2.orderListToOrderListResponse(databaseOrderService.filterBy(filter)));
     }

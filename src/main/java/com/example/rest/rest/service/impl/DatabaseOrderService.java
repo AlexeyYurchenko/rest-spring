@@ -26,6 +26,7 @@ public class DatabaseOrderService implements OrderService {
 
     @Override
     public List<Order> filterBy(OrderFilter filter) {
+//        return databaseOrderRepository.getByProduct(filter.getProductName()); SQL Query
         return databaseOrderRepository.findAll(OrderSpecification.withFilter(filter)
                 , PageRequest.of(
                         filter.getPageNumber(), filter.getPageSize()
