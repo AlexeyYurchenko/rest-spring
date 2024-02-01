@@ -64,7 +64,5 @@ public class ClientControllerV2 {
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 clientMapper.clientToResponse(databaseClientService.saveWithOrders(client,orders))
         );
-
-
     }
 }
